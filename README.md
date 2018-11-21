@@ -5,13 +5,29 @@ http://www.cs.put.poznan.pl/kdembczynski/lectures/pmds/labs/05/lab-05.pdf
 
 ## Star schema
 
-### db/activities.out
+### db/activities.in
 
 | col 1 | col 2 | col 3 |
 |------ | ----- | ----- |
-| User ID  | Song ID | Date (only month) |
+| Abstract user ID  | Abstract song ID | Date (only month) |
 
-### db
+### db/songs.in
+
+| col 1 | col 2 | col 3 |
+|------ | ----- | ----- |
+| Abstract song ID  | Arist | Song name |
+
+### db/users.in
+
+| col 1 | col 2 |
+|------ | ----- |
+| Abstract user ID | Real user ID |
+
+### db/tmp/songs.hash
+
+| col 1 | col 2 |
+|------ | ----- |
+| Abstract song ID | Real song ID |
 
 ## Getting started
 
