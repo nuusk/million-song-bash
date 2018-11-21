@@ -8,7 +8,7 @@ http://www.cs.put.poznan.pl/kdembczynski/lectures/pmds/labs/05/lab-05.pdf
 ### db/activities.out
 
 | col 1 | col 2 | col 3 |
-| ------------- | ------------- |
+|------ | ----- | ----- |
 | User ID  | Song ID | Date (only month) |
 
 ### db
