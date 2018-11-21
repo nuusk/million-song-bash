@@ -17,13 +17,13 @@ mawk -f scripts/transform_tracks.awk data/$tracks_test
 mawk -f scripts/transform_triplets.awk data/$triplets_test
 
 # get popular songs. works.
-# mawk -f scripts/queries/get_popularity.awk db/activities.in db/songs.in \
+# gawk -f scripts/queries/get_popularity.awk db/activities.in db/songs.in \
 # | sort -t, -nrk2 \
+# | head -10 \
 # | sed 's/,/ /g'
 
 # get most unique taste
-mawk -f scripts/queries/get_unique_taste_users.awk db/activities.in db/songs.in db/users.in \
-# | sort -t, -nrk2 \
-# | sed 's/,/ /g'
-
-
+mawk -f scripts/queries/get_unique_taste_users.awk db/activities.in db/users.in \
+| sort -t, -nrk2 \
+| head -10 \
+| sed 's/,/ /g'
