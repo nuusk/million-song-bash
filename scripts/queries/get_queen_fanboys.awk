@@ -10,9 +10,11 @@ FILENAME == "db/users.in" {
   users[$1]=$2;
 }
 
-FILENAME == "db/songs.in" && $2 == "Queen" {
+FILENAME == "db/songs.in" {
   # assuming all tracks in our input are unique, we don't have to check whether a song is already in the array
-  queen_songs[$1]=1;
+  if ($2 == "Queen") {
+    queen_songs[$1]=1;
+  }
 }
 
 FILENAME == "db/activities.in" {
@@ -23,6 +25,7 @@ FILENAME == "db/activities.in" {
     # a - represents the user that is listening 
     # b - song that this user listens to
     hash_user_activity_queen = $1 "," $2;
+
     # 1 means 'true', or in other words: user 'a' has listened to song 'b'
     queen_fanboys[hash_user_activity_queen]=1;
     popularity[$2]++;
@@ -30,10 +33,14 @@ FILENAME == "db/activities.in" {
 }
 
 END {
+  for (i=0; i<3; i++) {
+    max[i] = 0;
+  }
+
   # find three maximum popularity values
   for (i=0; i<3; i++) {
     for (j in popularity) {
-      if (popularity[j] > max[i]) {
+      if (popularity[j] > popularity[max[i]]) {
         max[i] = j;
       }
     }
@@ -47,13 +54,13 @@ END {
   }
 
   for (i in queen_fanboys) {
-    # print i;
     # split activity key into seperate elements
     # activity[1] is the user id
     # activity[2] is the song id
     split(i, activity, ",");
 
     if (!already_listened[activity[1]]) {
+
       # if it's 1, the user hasn't been listening to most popular tracks (yet)
       already_listened[activity[1]] = 1 + 0;
     }
@@ -65,7 +72,7 @@ END {
     primes[0]=2; primes[1]=3; primes[2]=5;
     # iterate through our prime numbers
     for (i = 0; i < 3; i++) {
-      if (activity[2] == max[i] && (already_listened[activity[1]]%primes[i]) != 0) {
+      if (activity[2] == max[i] && (already_listened[activity[1]] % primes[i]) != 0) {
         already_listened[activity[1]] *= primes[i];
       }  
     }
@@ -73,9 +80,13 @@ END {
 
   for (i in queen_fanboys) {
     split(i, activity, ",");
-    if (already_listened[activity[1]] == 30 && already_printed[activity[1]] != 1) {
-      print users[activity[1]];
-      already_printed[activity[1]] = 1;
+    if (already_listened[activity[1]] == 30) {
+      if (activity[1] in already_printed) {
+        # this user has been already printed.
+      } else {
+        print users[activity[1]];
+        already_printed[activity[1]] = 1;
+      }
     }
   }
 }

@@ -34,17 +34,13 @@ BEGIN {
   }
 
   # we only need a month from the date for our operations, so we don't extract it. strftime("%m", $3)
-  print users[$1], songs_hashmap[$2], strftime("%m", $3) > "db/activities.in"
+  print users[$1], songs_hashmap[$2], strftime("%m", $3,1) > "db/activities.in"
 }
 
 END {
   for (i in users) {
     print users[i], i > "db/users.in"
   }
-
-  # for (j in songs_hashmap) {
-  #   print j, songs_hashmap[j];
-  # }
 }
 
 # FNR - record number (in the current file)
