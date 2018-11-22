@@ -7,6 +7,10 @@ LC_CTYPE=C
 triplets="triplets_sample_20p.txt"
 tracks="unique_tracks.txt"
 
+# create directories that will be used during the whole process
+mkdir db 2> /dev/null
+mkdir db/tmp 2> /dev/null
+
 # generate databse - transform to star schema. only change those files when changing instances
 mawk -f scripts/transform_tracks.awk data/$tracks
 mawk -f scripts/transform_triplets.awk data/$triplets
