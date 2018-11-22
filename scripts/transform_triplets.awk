@@ -18,9 +18,7 @@ BEGIN {
   FS="<SEP>";
   OFS=",";
   users_iterator=0;
-  songs_iterator=0;
 
-  line_iterator=0;
   while(( getline line < "db/tmp/songs.hash") > 0  ) {
     split(line, song_id, ",");
     songs_hashmap[song_id[2]]=song_id[1];
